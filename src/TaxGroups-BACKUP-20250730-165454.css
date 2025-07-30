@@ -1,0 +1,413 @@
+/* Tax Groups Component Styles */
+
+.tax-groups-container {
+  padding: 20px;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  transform: scale(0.85);
+  transform-origin: top left;
+  width: 117.65%; /* Compensate for 85% scale: 100/0.85 = 117.65 */
+}
+
+/* Header Styles - Consistent with other forms */
+.tax-groups-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ffffff;
+  color: #4a90a4;
+  padding: 20px 30px;
+  border-radius: 8px 8px 0 0;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 0;
+  min-height: 60px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.tax-groups-title {
+  font-size: 24px;
+  font-weight: 400;
+  margin: 0;
+  color: #4a90a4;
+  line-height: 1.2;
+}
+
+.play-button {
+  background: none;
+  border: none;
+  color: #333;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+  flex-shrink: 0;
+}
+
+.play-button:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Tab Navigation - Improved styling */
+.tax-groups-tabs {
+  display: flex;
+  background-color: #e9ecef;
+  border-radius: 0;
+  overflow-x: auto;
+  border-bottom: 2px solid #dee2e6;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.tab-button {
+  background-color: transparent;
+  border: none;
+  padding: 14px 18px;
+  cursor: pointer;
+  font-size: 13px;
+  white-space: nowrap;
+  color: #495057;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s ease;
+  position: relative;
+  font-weight: 500;
+}
+
+.tab-button:hover {
+  background-color: #dee2e6;
+  color: #212529;
+}
+
+.tab-button.active {
+  background-color: white;
+  color: #4a90a4;
+  border-bottom-color: #4a90a4;
+  font-weight: 600;
+  box-shadow: 0 -1px 0 white;
+}
+
+/* Main Content */
+.tax-groups-content {
+  background-color: white;
+  border-radius: 0 0 8px 8px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Action Buttons - Consistent with other forms */
+.tax-groups-buttons {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.tax-groups-btn {
+  background-color: #4a90a4;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tax-groups-btn:hover {
+  background-color: #3d7a8c;
+}
+
+.tax-groups-btn:active {
+  transform: translateY(0);
+  background-color: #dee2e6;
+}
+
+.dropdown-btn {
+  position: relative;
+}
+
+.dropdown-arrow {
+  font-size: 12px;
+  margin-left: 4px;
+  transition: transform 0.2s ease;
+}
+
+.dropdown-btn:hover .dropdown-arrow {
+  transform: translateY(-1px);
+}
+
+/* Form Section - Enhanced styling */
+.tax-groups-form-section {
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  background-color: white;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  padding: 16px 20px;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.section-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+  color: #212529;
+}
+
+.expand-button {
+  background-color: transparent;
+  border: none;
+  color: #6c757d;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 6px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.expand-button:hover {
+  background-color: #e9ecef;
+  color: #495057;
+  transform: scale(1.1);
+}
+
+/* Table Styles - Enhanced to match other forms */
+.tax-groups-table-container {
+  overflow-x: auto;
+  background-color: white;
+}
+
+.tax-groups-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  background-color: white;
+}
+
+.tax-groups-header-row {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-bottom: 2px solid #dee2e6;
+}
+
+.tax-groups-header-row th {
+  padding: 16px 20px;
+  text-align: left;
+  font-weight: 600;
+  color: #495057;
+  border-right: 1px solid #dee2e6;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.tax-groups-header-row th:last-child {
+  border-right: none;
+}
+
+.tax-group-column {
+  width: 200px;
+  min-width: 180px;
+}
+
+.tax-group-name-column {
+  width: auto;
+  min-width: 350px;
+}
+
+/* Table Rows - Enhanced styling */
+.tax-groups-row {
+  border-bottom: 1px solid #dee2e6;
+  transition: all 0.2s ease;
+  background-color: white;
+}
+
+.tax-groups-row:hover {
+  background-color: #f8f9fa;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.tax-groups-row:last-child {
+  border-bottom: none;
+}
+
+.tax-group-cell,
+.tax-group-name-cell {
+  padding: 16px 20px;
+  vertical-align: middle;
+  border-right: 1px solid #dee2e6;
+}
+
+.tax-group-name-cell {
+  border-right: none;
+  color: #495057;
+  font-weight: 500;
+}
+
+.tax-group-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.expand-row-button {
+  background-color: transparent;
+  border: none;
+  color: #6c757d;
+  cursor: pointer;
+  font-size: 12px;
+  padding: 4px;
+  border-radius: 3px;
+  transition: all 0.2s ease;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.expand-row-button:hover {
+  background-color: #e9ecef;
+  color: #495057;
+  transform: scale(1.1);
+}
+
+.tax-group-code {
+  font-family: 'Courier New', monospace;
+  font-weight: 600;
+  color: #212529;
+  font-size: 14px;
+  background-color: #f8f9fa;
+  padding: 4px 8px;
+  border-radius: 3px;
+  border: 1px solid #e9ecef;
+}
+
+/* Expandable Sub-rows Styling */
+.sub-row-container {
+  background-color: #f8f9fa;
+}
+
+.sub-row-cell {
+  padding: 0 !important;
+  border-right: none !important;
+}
+
+.sub-rows-wrapper {
+  padding: 16px 20px;
+  background-color: #f8f9fa;
+  border-top: 1px solid #e9ecef;
+}
+
+.sub-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.sub-row:last-child {
+  margin-bottom: 0;
+}
+
+.sub-row-input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: border-color 0.2s ease;
+}
+
+.sub-row-input:focus {
+  outline: none;
+  border-color: #4a90a4;
+  box-shadow: 0 0 0 2px rgba(74, 144, 164, 0.2);
+}
+
+.sub-row-buttons {
+  display: flex;
+  gap: 4px;
+}
+
+.sub-row-btn {
+  width: 28px;
+  height: 28px;
+  border: 1px solid #ced4da;
+  background-color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.sub-row-btn:hover:not(:disabled) {
+  background-color: #f8f9fa;
+  border-color: #4a90a4;
+}
+
+.add-btn {
+  color: #28a745;
+}
+
+.add-btn:hover:not(:disabled) {
+  background-color: #d4edda;
+  border-color: #28a745;
+}
+
+.remove-btn {
+  color: #dc3545;
+}
+
+.remove-btn:hover:not(:disabled) {
+  background-color: #f8d7da;
+  border-color: #dc3545;
+}
+
+.remove-btn:disabled {
+  color: #6c757d;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.expand-row-button {
+  transition: transform 0.2s ease;
+}
+
+/* Responsive Design for Sub-rows */
+@media (max-width: 768px) {
+  .sub-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+  
+  .sub-row-buttons {
+    align-self: center;
+  }
+}
