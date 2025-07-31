@@ -47,17 +47,6 @@ function App() {
     { schedule: '8825', group: '', amount: '', property: '' }
   ])
 
-  // Debug: Log scheduleData changes in App.tsx
-  useEffect(() => {
-    console.log('🎯 === APP.TSX SCHEDULE DATA UPDATED ===')
-    console.log('📊 scheduleData in App:', scheduleData)
-    console.log('📈 scheduleData length:', scheduleData.length)
-    scheduleData.forEach((entry, i) => {
-      console.log(`   📄 App Entry ${i}:`, JSON.stringify(entry, null, 2))
-    })
-    console.log('🎯 ====================================')
-  }, [scheduleData])
-
   const [isRecurring, setIsRecurring] = useState(true)
 
   // Update account data when tax-only engagement changes
@@ -92,7 +81,7 @@ function App() {
     if (numProps > 0) {
       setPropertyDetails(prev => {
         const newPropertyDetails = Array.from({ length: numProps }, (_, index) => ({
-          property: `${index + 1}`,
+          property: `Property ${index + 1}`,
           propertyId: prev[index]?.propertyId || '',
           propertyName: prev[index]?.propertyName || ''
         }))

@@ -42,29 +42,12 @@ function Form8825({
   onNavigateToTaxAdjustment,
   onNavigateToTaxGroups,
   numberOfProperties,
+  formatAmount,
   propertyDetails = [],
   accountData = [],
   scheduleData = [],
   customTaxGroups = []
 }: Form8825Props) {
-
-  // Debug: Log scheduleData to see what Tax Adjustment entries are available
-  console.log('🔍 === FORM8825 SCHEDULE DATA DEBUG ===')
-  console.log('📊 scheduleData received:', scheduleData)
-  console.log('📈 scheduleData length:', scheduleData.length)
-  console.log('📋 scheduleData type:', typeof scheduleData)
-  console.log('📝 scheduleData is array:', Array.isArray(scheduleData))
-  
-  if (scheduleData && scheduleData.length > 0) {
-    console.log('✅ ScheduleData has entries:')
-    scheduleData.forEach((entry, i) => {
-      console.log(`   📄 Entry ${i}:`, JSON.stringify(entry, null, 2))
-    })
-  } else {
-    console.log('❌ ScheduleData is EMPTY or undefined!')
-    console.log('   This explains why no adjustment amounts appear.')
-  }
-  console.log('🔍 ================================')
 
   // Ensure we have a valid number of properties (minimum 1, default 3)
   const propertyCount = numberOfProperties && numberOfProperties > 0 ? numberOfProperties : 3
@@ -233,15 +216,6 @@ function Form8825({
       targetTaxGroup = `8825.${line}`
     }
     
-    // Debug: Log adjustment lookup for line 02/03, property 1 only to reduce noise
-    if ((line === '02' || line === '03') && propertyNum === 1) {
-      console.log(`DEBUG getAdjustmentAmount - line: ${line}, propertyNum: ${propertyNum}, targetTaxGroup: ${targetTaxGroup}, isChild: ${isChild}, childCode: ${childCode}`)
-      console.log(`scheduleData length: ${scheduleData.length}`)
-      scheduleData.forEach((entry, i) => {
-        console.log(`Entry ${i}: schedule="${entry.schedule}", group="${entry.group}", property="${entry.property}", amount="${entry.amount}"`)
-      })
-    }
-    
     // Find all schedule entries that match the criteria
     const matchingEntries = scheduleData.filter(entry => {
       const entryTaxGroup = entry.group
@@ -275,14 +249,6 @@ function Form8825({
         return taxGroupMatches(entryTaxGroup, targetTaxGroup)
       }
     })
-    
-    // Debug: Log matching results
-    if ((line === '02' || line === '03') && propertyNum === 1) {
-      console.log(`Matching adjustment entries found: ${matchingEntries.length}`)
-      matchingEntries.forEach((entry, i) => {
-        console.log(`Match ${i}: ${JSON.stringify(entry)}`)
-      })
-    }
     
     // For child rows, we want to aggregate all matching amounts
     if (matchingEntries.length === 0) return ''
@@ -319,14 +285,41 @@ function Form8825({
     const adjustment = parseAmount(adjustmentAmount)
     const total = opening + adjustment
     
-    // Always show the result if there's any amount (opening or adjustment)
-    // Only return empty if both amounts are truly empty AND total is 0
-    if (total === 0 && (!openingAmount || openingAmount.trim() === '') && (!adjustmentAmount || adjustmentAmount.trim() === '')) {
-      return ''
-    }
-    
     // Format the result
     return total < 0 ? `(${Math.abs(total)})` : total.toString()
+  }
+
+  // Function to calculate parent ending amount by aggregating all child ending amounts
+  const calculateParentEndingAmount = (line: string, propertyNum: number) => {
+    const childrenGroups = getChildrenGroups(line)
+    let totalEnding = 0
+    
+    // Sum up ending amounts from all children (including default .00)
+    childrenGroups.forEach(child => {
+      const childOpeningAmount = child.isDefault 
+        ? getOpeningAmount(line, propertyNum, accountData, true, `8825.${line}.00`)
+        : getOpeningAmount(line, propertyNum, accountData, true, child.code)
+      
+      const childAdjustmentAmount = child.isDefault
+        ? getAdjustmentAmount(line, propertyNum, scheduleData, true, `8825.${line}.00`)
+        : getAdjustmentAmount(line, propertyNum, scheduleData, true, child.code)
+      
+      const childEndingAmount = calculateEndingAmount(childOpeningAmount, childAdjustmentAmount)
+      
+      // Parse and add to total
+      const parseAmount = (amount: string) => {
+        if (!amount || amount.trim() === '') return 0
+        const isNegative = amount.includes('(') && amount.includes(')')
+        const cleanAmount = amount.replace(/[(),\s]/g, '')
+        const numericValue = parseFloat(cleanAmount) || 0
+        return isNegative ? -numericValue : numericValue
+      }
+      
+      totalEnding += parseAmount(childEndingAmount)
+    })
+    
+    // Format the result
+    return totalEnding < 0 ? `(${Math.abs(totalEnding)})` : totalEnding.toString()
   }
 
   // Function to get children groups for a specific parent line
@@ -423,8 +416,8 @@ function Form8825({
                         const propertyNum = propIndex + 1
                         const openingAmount = getOpeningAmount(item.line, propertyNum, accountData)
                         const adjustmentAmount = getAdjustmentAmount(item.line, propertyNum, scheduleData)
-                        // For parent rows, calculate ending amount as simple Opening + Adjustment
-                        const endingAmount = calculateEndingAmount(openingAmount, adjustmentAmount)
+                        // For parent rows, calculate ending amount by aggregating all child ending amounts
+                        const endingAmount = calculateParentEndingAmount(item.line, propertyNum)
                         
                         return (
                           <td key={propertyNum} className="property-cell">
