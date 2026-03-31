@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './Form8825.css'
 
 interface Form8825Props {
@@ -7,6 +7,7 @@ interface Form8825Props {
   onNavigateToAssignment?: () => void
   onNavigateToTaxAdjustment?: () => void
   onNavigateToTaxGroups?: () => void
+  onNavigateToForm8825v2?: () => void
   numberOfProperties?: number
   formatAmount?: (amount: number) => string
   propertyDetails?: Array<{
@@ -27,6 +28,7 @@ interface Form8825Props {
     group: string
     amount: string
     property: string
+    adjustmentType: string
   }>
   customTaxGroups?: Array<{
     code: string
@@ -41,12 +43,16 @@ function Form8825({
   onNavigateToAssignment, 
   onNavigateToTaxAdjustment,
   onNavigateToTaxGroups,
+  onNavigateToForm8825v2,
   numberOfProperties,
   propertyDetails = [],
   accountData = [],
   scheduleData = [],
   customTaxGroups = []
 }: Form8825Props) {
+
+  // State for showing only ending columns
+  const [showEndingOnly, setShowEndingOnly] = useState(false)
 
   // Debug: Log scheduleData to see what Tax Adjustment entries are available
   console.log('🔍 === FORM8825 SCHEDULE DATA DEBUG ===')
@@ -388,6 +394,20 @@ function Form8825({
           <button className="form8825-btn" onClick={onNavigateToTaxGroups}>Tax groups</button>
           <button className="form8825-btn" onClick={onNavigateToAssignment}>Tax group assignment</button>
           <button className="form8825-btn" onClick={onNavigateToTaxAdjustment}>Tax adjustments</button>
+          <button className="form8825-btn" onClick={onNavigateToForm8825v2}>Form 8825 - 2.0</button>
+        </div>
+
+        {/* View Options */}
+        <div className="form8825-view-options">
+          <label className="view-option-checkbox">
+            <input 
+              type="checkbox" 
+              checked={showEndingOnly}
+              onChange={(e) => setShowEndingOnly(e.target.checked)}
+            />
+            <span className="checkmark"></span>
+            Show ending amounts only
+          </label>
         </div>
 
         {/* Form 8825 Table */}
@@ -401,8 +421,8 @@ function Form8825({
                   <th key={index + 1} className="property-group-column">
                     <div className="property-header">{getPropertyDisplayText(index)}</div>
                     <div className="sub-headers">
-                      <div className="sub-header">Opening</div>
-                      <div className="sub-header">Adj</div>
+                      {!showEndingOnly && <div className="sub-header">Opening</div>}
+                      {!showEndingOnly && <div className="sub-header">Adj</div>}
                       <div className="sub-header">Ending</div>
                     </div>
                   </th>
@@ -429,18 +449,22 @@ function Form8825({
                         return (
                           <td key={propertyNum} className="property-cell">
                             <div className="property-amounts">
-                              <input 
-                                type="text" 
-                                className="amount-input opening-input"
-                                defaultValue={openingAmount}
-                                placeholder=""
-                              />
-                              <input 
-                                type="text" 
-                                className="amount-input adj-input"
-                                defaultValue={adjustmentAmount}
-                                placeholder=""
-                              />
+                              {!showEndingOnly && (
+                                <input 
+                                  type="text" 
+                                  className="amount-input opening-input"
+                                  defaultValue={openingAmount}
+                                  placeholder=""
+                                />
+                              )}
+                              {!showEndingOnly && (
+                                <input 
+                                  type="text" 
+                                  className="amount-input adj-input"
+                                  defaultValue={adjustmentAmount}
+                                  placeholder=""
+                                />
+                              )}
                               <input 
                                 type="text" 
                                 className="amount-input ending-input"
@@ -486,18 +510,22 @@ function Form8825({
                           return (
                             <td key={propertyNum} className="property-cell">
                               <div className="property-amounts">
-                                <input 
-                                  type="text" 
-                                  className="amount-input opening-input"
-                                  defaultValue={openingAmount}
-                                  placeholder=""
-                                />
-                                <input 
-                                  type="text" 
-                                  className="amount-input adj-input"
-                                  defaultValue={adjustmentAmount}
-                                  placeholder=""
-                                />
+                                {!showEndingOnly && (
+                                  <input 
+                                    type="text" 
+                                    className="amount-input opening-input"
+                                    defaultValue={openingAmount}
+                                    placeholder=""
+                                  />
+                                )}
+                                {!showEndingOnly && (
+                                  <input 
+                                    type="text" 
+                                    className="amount-input adj-input"
+                                    defaultValue={adjustmentAmount}
+                                    placeholder=""
+                                  />
+                                )}
                                 <input 
                                   type="text" 
                                   className="amount-input ending-input"

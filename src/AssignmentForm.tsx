@@ -7,6 +7,7 @@ interface AssignmentFormProps {
   numberOfProperties?: number
   onNavigateToTaxAdjustment?: () => void
   onNavigateToForm8825?: () => void
+  onNavigateToForm8825v2?: () => void
   onNavigateToTaxGroups?: () => void
   propertyDetails?: Array<{
     property: string
@@ -42,6 +43,7 @@ function AssignmentForm({
   numberOfProperties = 0, 
   onNavigateToTaxAdjustment,
   onNavigateToForm8825,
+  onNavigateToForm8825v2,
   onNavigateToTaxGroups,
   propertyDetails = [],
   accountData,
@@ -251,6 +253,7 @@ function AssignmentForm({
           <button className="assignment-btn" onClick={onNavigateToTaxGroups}>Tax groups</button>
           <button className="assignment-btn" onClick={onNavigateToTaxAdjustment}>Tax adjustments</button>
           <button className="assignment-btn" onClick={onNavigateToForm8825}>Form 8825</button>
+          <button className="assignment-btn" onClick={onNavigateToForm8825v2}>Form 8825 - 2.0</button>
         </div>
 
         {/* Assignment Table */}

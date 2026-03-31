@@ -89,6 +89,34 @@
   color: #666;
 }
 
+/* View Options */
+.form8825-view-options {
+  margin: 20px 0;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+}
+
+.view-option-checkbox {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+  user-select: none;
+}
+
+.view-option-checkbox input[type="checkbox"] {
+  margin-right: 10px;
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+.view-option-checkbox:hover {
+  color: #4a90a4;
+}
+
 /* Form 8825 Table */
 .form8825-table-container {
   border: 1px solid #ddd;
@@ -288,6 +316,12 @@
 .property-amounts {
   display: flex;
   gap: 4px;
+}
+
+/* Adjust layout when showing ending only */
+.property-amounts .ending-input:only-child {
+  min-width: 80px;
+  width: 100%;
 }
 
 .amount-input {

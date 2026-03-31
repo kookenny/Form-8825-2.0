@@ -7,6 +7,7 @@ interface TaxGroupsProps {
   onNavigateToAssignment?: () => void
   onNavigateToTaxAdjustment?: () => void
   onNavigateToForm8825?: () => void
+  onNavigateToForm8825v2?: () => void
   customTaxGroups?: Array<{
     code: string
     name: string
@@ -21,6 +22,7 @@ function TaxGroups({
   onNavigateToAssignment,
   onNavigateToTaxAdjustment,
   onNavigateToForm8825,
+  onNavigateToForm8825v2,
   customTaxGroups = [],
   onUpdateCustomTaxGroups
 }: TaxGroupsProps) {
@@ -221,6 +223,7 @@ function TaxGroups({
           <button className="tax-groups-btn" onClick={onNavigateToAssignment}>Tax group assignment</button>
           <button className="tax-groups-btn" onClick={onNavigateToTaxAdjustment}>Tax adjustments</button>
           <button className="tax-groups-btn" onClick={onNavigateToForm8825}>Form 8825</button>
+          <button className="tax-groups-btn" onClick={onNavigateToForm8825v2}>Form 8825 - 2.0</button>
         </div>
 
         {/* Form Section */}

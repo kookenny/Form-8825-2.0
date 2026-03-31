@@ -4,6 +4,7 @@ interface TaxAdjustmentProps {
   onBack?: () => void
   onNavigateToAssignment?: () => void
   onNavigateToForm8825?: () => void
+  onNavigateToForm8825v2?: () => void
   onNavigateToTaxGroups?: () => void
   showPropertyColumn?: boolean
   numberOfProperties?: number
@@ -27,12 +28,14 @@ interface TaxAdjustmentProps {
     group: string
     amount: string
     property: string
+    adjustmentType: string
   }>
   setScheduleData: React.Dispatch<React.SetStateAction<Array<{
     schedule: string
     group: string
     amount: string
     property: string
+    adjustmentType: string
   }>>>
   isRecurring: boolean
   setIsRecurring: React.Dispatch<React.SetStateAction<boolean>>
@@ -47,6 +50,7 @@ function TaxAdjustment({
   onBack, 
   onNavigateToAssignment,
   onNavigateToForm8825,
+  onNavigateToForm8825v2,
   onNavigateToTaxGroups,
   showPropertyColumn = false, 
   numberOfProperties = 0,
@@ -264,7 +268,7 @@ function TaxAdjustment({
   const addScheduleRow = () => {
     setScheduleData(prev => [
       ...prev,
-      { schedule: 'Income and deductions', group: '', amount: '', property: '' }
+      { schedule: 'Income and deductions', group: '', amount: '', property: '', adjustmentType: 'Tax reclassifying - 8825' }
     ])
   }
   
@@ -290,6 +294,7 @@ function TaxAdjustment({
           <button className="tax-adjustment-btn" onClick={onNavigateToTaxGroups}>Tax groups</button>
           <button className="tax-adjustment-btn" onClick={onNavigateToAssignment}>Tax group assignment</button>
           <button className="tax-adjustment-btn" onClick={onNavigateToForm8825}>Form 8825</button>
+          <button className="tax-adjustment-btn" onClick={onNavigateToForm8825v2}>Form 8825 - 2.0</button>
         </div>
 
         {/* Recurring Checkbox */}

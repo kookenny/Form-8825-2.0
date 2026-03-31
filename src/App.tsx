@@ -3,6 +3,7 @@ import './App.css'
 import AssignmentForm from './AssignmentForm'
 import TaxAdjustment from './TaxAdjustment'
 import Form8825 from './Form8825'
+import Form8825v2 from './Form8825v2'
 import TaxGroups from './TaxGroups'
 
 function App() {
@@ -43,8 +44,8 @@ function App() {
   ])
 
   const [scheduleData, setScheduleData] = useState([
-    { schedule: 'Income and deductions', group: '', amount: '', property: '' },
-    { schedule: '8825', group: '', amount: '', property: '' }
+    { schedule: 'Income and deductions', group: '', amount: '', property: '', adjustmentType: '' },
+    { schedule: '8825', group: '', amount: '', property: '', adjustmentType: '' }
   ])
 
   // Debug: Log scheduleData changes in App.tsx
@@ -137,6 +138,10 @@ function App() {
     setCurrentView('form8825')
   }
 
+  const navigateToForm8825v2 = () => {
+    setCurrentView('form8825v2')
+  }
+
   const navigateToTaxGroups = () => {
     setCurrentView('tax-groups')
   }
@@ -151,6 +156,7 @@ function App() {
       onNavigateToTaxGroups={navigateToTaxGroups}
       onNavigateToTaxAdjustment={navigateToTaxAdjustment}
       onNavigateToForm8825={navigateToForm8825}
+      onNavigateToForm8825v2={navigateToForm8825v2}
       accountData={accountData}
       setAccountData={setAccountData}
       propertyDetails={propertyDetails}
@@ -164,6 +170,7 @@ function App() {
       onBack={navigateToEngagementSetup}
       onNavigateToAssignment={navigateToAssignment}
       onNavigateToForm8825={navigateToForm8825}
+      onNavigateToForm8825v2={navigateToForm8825v2}
       onNavigateToTaxGroups={navigateToTaxGroups}
       showPropertyColumn={hasRentalAccounts === 'Yes'}
       numberOfProperties={parseInt(numberOfProperties) || 0}
@@ -185,6 +192,23 @@ function App() {
       onNavigateToAssignment={navigateToAssignment}
       onNavigateToTaxAdjustment={navigateToTaxAdjustment}
       onNavigateToTaxGroups={navigateToTaxGroups}
+      onNavigateToForm8825v2={navigateToForm8825v2}
+      numberOfProperties={parseInt(numberOfProperties) || 3}
+      accountData={accountData}
+      scheduleData={scheduleData}
+      propertyDetails={propertyDetails}
+      customTaxGroups={customTaxGroups}
+    />
+  }
+
+  // Render Form 8825 2.0
+  if (currentView === 'form8825v2') {
+    return <Form8825v2
+      onBack={navigateToEngagementSetup}
+      onNavigateToAssignment={navigateToAssignment}
+      onNavigateToTaxAdjustment={navigateToTaxAdjustment}
+      onNavigateToTaxGroups={navigateToTaxGroups}
+      onNavigateToForm8825={navigateToForm8825}
       numberOfProperties={parseInt(numberOfProperties) || 3}
       accountData={accountData}
       scheduleData={scheduleData}
@@ -201,6 +225,7 @@ function App() {
       onNavigateToAssignment={navigateToAssignment}
       onNavigateToTaxAdjustment={navigateToTaxAdjustment}
       onNavigateToForm8825={navigateToForm8825}
+      onNavigateToForm8825v2={navigateToForm8825v2}
       customTaxGroups={customTaxGroups}
       onUpdateCustomTaxGroups={updateCustomTaxGroups}
     />
@@ -223,6 +248,7 @@ function App() {
           <button className="action-btn" onClick={navigateToAssignment}>Tax group assignment</button>
           <button className="action-btn" onClick={navigateToTaxAdjustment}>Tax adjustments</button>
           <button className="action-btn" onClick={navigateToForm8825}>Form 8825</button>
+          <button className="action-btn action-btn-v2" onClick={navigateToForm8825v2}>Form 8825 - 2.0</button>
         </div>
 
         {/* Engagement Setup Section */}

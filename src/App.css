@@ -82,6 +82,14 @@
   background-color: #3d7a8c;
 }
 
+.action-btn-v2 {
+  background-color: #6b5ea8;
+}
+
+.action-btn-v2:hover {
+  background-color: #574d8a;
+}
+
 .dropdown-btn {
   position: relative;
 }
